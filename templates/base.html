@@ -1,3 +1,4 @@
+{% load static %}
 {% load static tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
@@ -7,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Independent Analyst{% endblock %}</title>
     {% tailwind_css %}
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'thblog/css/style.css' %}">
 </head>
 <body>
     <div class = "max-w-full mx-auto">

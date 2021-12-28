@@ -44,8 +44,11 @@ INSTALLED_APPS = [
     # third party apps
     'tailwind',
     'theme',
+    "crispy_forms",
+    "crispy_tailwind",
     # Local apps
     'post',
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -60,6 +63,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'thblog.urls'
 TAILWIND_APP_NAME = 'theme'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+CRISPY_TEMPLATE_PACK = "tailwind"
 
 TEMPLATES = [
     {
@@ -135,3 +140,9 @@ STATIC_ROOT = os.path.join(BASE_DIR,'static')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Auth - Login
+AUTH_USER_MODEL = 'account.CustomUser'
+LOGIN_REDIRECT_URL = 'blog:posts'
+LOGOUT_REDIRECT_URL = 'blog:posts'
+LOGIN_URL = '/login'
