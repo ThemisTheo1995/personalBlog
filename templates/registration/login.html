@@ -9,7 +9,7 @@
   <div class="max-w-lg mx-auto">
     <h1 class = "title-font sm:text-3xl text-2xl mb-1 font-medium text-gray-900">Login</h1>
     <p class="text-gray-600 mb-4">New here?
-      <a href="{% url 'account:signup' %}" class="text-fuchsia-700 hover:text-fuchsia-800 text-lg">
+      <a href="{% url 'account:signup' %}" class="md:cursor-pointer cursor-default text-fuchsia-700 hover:text-fuchsia-800 text-lg">
         Create an account
       </a>
     </p>
@@ -17,15 +17,15 @@
     <form method="post">
   {% csrf_token %}
   {{ form|crispy }}
-      <button type="submit" class="w-full tracking-wider bg-gradient-to-r from-purple-800 to-pink-800 hover:shadow-xl px-3 py-2 rounded-md text-white my-6 text-lg transition duration-100 ease-in-out">
-        Login
+      <button type="submit" class="md:cursor-pointer cursor-default w-full tracking-wider bg-gradient-to-r from-purple-800 to-pink-800 hover:shadow-xl px-3 py-2 rounded-md text-white my-6 text-lg transition duration-100 ease-in-out">
+        Login 👏
       </button>
     </form>
     <div class="md:ml-auto flex justify-between">
-      <a href="{% url 'password_reset' %}" class="text-center w-full mr-2 text-sm tracking-wider bg-gradient-to-r from-purple-800 to-pink-800 hover:shadow-xl px-3 py-1 rounded-md text-white mb-3 transition duration-100 ease-in-out">
+      <a href="{% url 'password_reset' %}" class="md:cursor-pointer cursor-default text-center w-full mr-2 text-sm tracking-wider bg-gradient-to-r from-purple-800 to-pink-800 hover:shadow-xl px-3 py-1 rounded-md text-white mb-3 transition duration-100 ease-in-out">
         Forgot password?
       </a>
-      <a href="{% url 'account:signup' %}" class="text-center w-full ml-2 text-sm tracking-wider bg-gradient-to-r from-purple-800 to-pink-800 hover:shadow-xl px-3 py-1 rounded-md text-white mb-3 transition duration-100 ease-in-out">
+      <a href="{% url 'account:signup' %}" class="md:cursor-pointer cursor-default text-center w-full ml-2 text-sm tracking-wider bg-gradient-to-r from-purple-800 to-pink-800 hover:shadow-xl px-3 py-1 rounded-md text-white mb-3 transition duration-100 ease-in-out">
         Create an account
       </a>
     </div>

@@ -1,0 +1,18 @@
+avatar_choices = {
+  'Avatar_1.png':'Avatar_1.png',
+  'Avatar_2.png':'Avatar_2.png',
+  'Avatar_3.png':'Avatar_3.png',
+  'Avatar_4.png':'Avatar_4.png',
+  'Avatar_5.png':'Avatar_5.png',
+  'Avatar_6.png':'Avatar_6.png',
+  'Avatar_7.png':'Avatar_7.png',
+  'Avatar_8.png':'Avatar_8.png',
+  'Avatar_9.png':'Avatar_9.png',
+  'Avatar_10.png':'Avatar_10.png',
+  'Avatar_11.png':'Avatar_11.png',
+  'Avatar_12.png':'Avatar_12.png',
+  'Avatar_13.png':'Avatar_13.png',
+  'Avatar_14.png':'Avatar_14.png',
+  'Avatar_15.png':'Avatar_15.png',
+  'Avatar_16.png':'Avatar_16.png',
+}

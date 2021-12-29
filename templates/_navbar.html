@@ -6,7 +6,7 @@
     <div class="relative flex items-center justify-between h-16">
       <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
         <!-- Mobile menu button-->
-        <button id="mobile-menu-btn" type="button" class="inline-flex items-center justify-center p-2 rounded-md shadow-md text-gray-300 hover:text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+        <button id="mobile-menu-btn" type="button" class="md:cursor-pointer cursor-default inline-flex items-center justify-center p-2 rounded-md shadow-md text-gray-300 hover:text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
           <span class="sr-only">Open main menu</span>
           <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -21,20 +21,20 @@
         <div class="hidden sm:block sm:ml-6">
           <div class="flex space-x-4">
           {% if request.path == URLPosts  %}
-            <a href="{% url "blog:posts" %}" class="bg-white text-pink-800 px-3 py-2 rounded-md text-sm">
+            <a href="{% url "blog:posts" %}" class="md:cursor-pointer cursor-default bg-white text-pink-800 px-3 py-2 rounded-md text-sm">
               Posts
             </a>
           {% else %}
-            <a href="{% url "blog:posts" %}" class="text-gray-300 hover:bg-pink-700 hover:text-white px-3 py-2 rounded-md text-sm">
+            <a href="{% url "blog:posts" %}" class="md:cursor-pointer cursor-default text-gray-300 hover:bg-pink-700 hover:text-white px-3 py-2 rounded-md text-sm">
               Posts
             </a>
           {% endif %}
-            <a href="#" class="text-gray-300 hover:bg-pink-700 hover:text-white px-3 py-2 rounded-md text-sm">About</a>
+            <a href="#" class="md:cursor-pointer cursor-default text-gray-300 hover:bg-pink-700 hover:text-white px-3 py-2 rounded-md text-sm">About</a>
           </div>
         </div>
       </div>
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-        <button type="button" class="bg-white p-1 rounded-full text-gray-400 hover:text-fuchsia-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+        <button type="button" class="md:cursor-pointer cursor-default bg-white p-1 rounded-full text-gray-400 hover:text-fuchsia-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
           <span class="sr-only">View notifications</span>
           <span class="absolute -m-2 ml-1 inline-flex h-3 w-3 opacity-75 animate-ping rounded-full bg-white"></span>
           <span class="absolute -m-2 ml-1 inline-flex h-3 w-3 rounded-full bg-pink-800 border-white border"></span>
@@ -47,31 +47,36 @@
         <div class="ml-3 relative">
           {% if request.user.is_authenticated %}
           <!-- User is authenticated-->
-          <button type="button" class="dropdown bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" 
+          <button type="button" class="md:cursor-pointer cursor-default dropdown bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" 
           id="profile-menu-btn">
             <span class="sr-only">Open user menu</span>
-            <img class="h-8 w-8 rounded-full" src="{% static "thblog/images/Avatars/Avatar_2.png" %}" alt="Avatar">
+            {% if request.user.avatar == ''%}
+            <img class="h-8 w-8 rounded-full bg-pink-800 hover:bg-pink-700" src="{% static "thblog/images/Avatars/nonauth_user.svg" %}" alt="avtr">
+            {% else %}
+            <img class="h-8 w-8 rounded-full" src="{% static "thblog/images/Avatars/" %}{{user.avatar}}" alt="avtr">
+            {% endif %}
           </button>
           <div class="z-10 scale-0 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg p-2 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none transition-all duration-250" 
             id="profile-menu">
-            <a href="#" class="block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-0">My Account</a>
-            <a href="#" class="block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-1">Settings</a>
-            <a href="{% url "logout" %}" class="block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-2">Logout</a>
-            <a href="#" class="block rounded px-2 py-3 text-xs text-gray-700 hover:bg-purple-100" id="user-menu-item-3">GDPR</a>
+            <a href="#" class="md:cursor-pointer cursor-default block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-0">My Account</a>
+            <a href="#" class="md:cursor-pointer cursor-default block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-1">Settings</a>
+            <a href="{% url "account:update-user" %}" class="md:cursor-pointer cursor-default block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-2">Update Account Details</a>
+            <a href="{% url "logout" %}" class="md:cursor-pointer cursor-default block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-3">Logout</a>
+            <a href="#" class="md:cursor-pointer cursor-default block rounded px-2 py-2 text-xs text-gray-500 hover:bg-purple-100" id="user-menu-item-4">GDPR • Policy</a>
           </div>
           {% else %}
           <!-- User is not authenticated-->
-          <button type="button" class="dropdown bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" 
+          <button type="button" class="md:cursor-pointer cursor-default dropdown bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" 
           id="profile-menu-btn">
             <span class="sr-only">Open user menu</span>
-            <img class="h-8 w-8 rounded-full bg-pink-800 hover:bg-pink-700" src="{% static "thblog/images/Avatars/nonauth_user.svg" %}" alt="Avatar">
+            <img class="h-8 w-8 rounded-full bg-pink-800 hover:bg-pink-700" src="{% static "thblog/images/Avatars/nonauth_user.svg" %}" alt="avtr">
           </button>
           <div class="z-10 scale-0 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg p-2 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none transition-all duration-250" 
             id="profile-menu">
-            <a href="{% url "login" %}" class="block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-0">Login</a>
-            <a href="{% url 'account:signup' %}" class="block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-1">Sign Up</a>
-            <a href="#" class="block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-2">Favourites</a>
-            <a href="#" class="block rounded px-2 py-3 text-xs text-gray-700 hover:bg-purple-100" id="user-menu-item-3">GDPR</a>
+            <a href="{% url "login" %}" class="md:cursor-pointer cursor-default block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-0">Login</a>
+            <a href="{% url 'account:signup' %}" class="md:cursor-pointer cursor-default block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-1">Signup</a>
+            <a href="#" class="md:cursor-pointer cursor-default block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-2">Favourites</a>
+            <a href="#" class="md:cursor-pointer cursor-default block rounded px-2 py-2 text-xs text-gray-500 hover:bg-purple-100" id="user-menu-item-3">GDPR • Policy</a>
           </div>
           {% endif %}
         </div>
@@ -82,16 +87,16 @@
   <div class="scale-0 sm:hidden absolute transition-all duration-250 easy-in-out w-full bg-pink-800 rounded-b" id="mobile-menu">
     <div class="px-2 pt-2 pb-3 space-y-4">
       {% if request.path == URLPosts  %}
-        <a href="{% url "blog:posts" %}" class="bg-white text-pink-800 block px-3 py-2 rounded-md text-base font-medium">
+        <a href="{% url "blog:posts" %}" class="md:cursor-pointer cursor-default bg-white text-pink-800 block px-3 py-2 rounded-md text-base font-medium">
           Posts
         </a>
       {% else %}
-        <a href="{% url "blog:posts" %}" class="text-gray-300 hover:bg-pink-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+        <a href="{% url "blog:posts" %}" class="md:cursor-pointer cursor-default text-gray-300 hover:bg-pink-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
           Posts
         </a>
       {% endif %}
       <div class="h-2 rounded bg-gradient-to-r from-purple-800 to-pink-600 w-full"></div>
-      <a href="#" class="text-gray-300 hover:bg-pink-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
+      <a href="#" class="md:cursor-pointer cursor-default text-gray-300 hover:bg-pink-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
     </div>
   </div>
 <script>

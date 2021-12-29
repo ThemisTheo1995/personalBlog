@@ -2,7 +2,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener('click', function (e) {
         const dropdownMenu = document.getElementById('profile-menu');
-        console.log(e.target.parentNode.id);
         if (e.target.parentNode.id === 'profile-menu-btn'){
             if (dropdownMenu.classList.contains("scale-0")){
                 dropdownMenu.classList.remove("scale-0");
