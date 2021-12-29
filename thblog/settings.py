@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'theme',
     "crispy_forms",
     "crispy_tailwind",
+    "django_cleanup",
     # Local apps
     'post',
     'account',
@@ -146,5 +147,9 @@ AUTH_USER_MODEL = 'account.CustomUser'
 LOGIN_REDIRECT_URL = 'blog:posts'
 LOGOUT_REDIRECT_URL = 'blog:posts'
 LOGIN_URL = '/login'
+
+# Media folder
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
