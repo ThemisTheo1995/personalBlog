@@ -30,6 +30,7 @@
             </a>
           {% endif %}
             <a href="#" class="md:cursor-pointer cursor-default text-gray-300 hover:bg-pink-700 hover:text-white px-3 py-2 rounded-md text-sm">About</a>
+            <a href="#" class="md:cursor-pointer cursor-default text-gray-300 hover:bg-pink-700 hover:text-white px-3 py-2 rounded-md text-sm">Contact</a>
           </div>
         </div>
       </div>
@@ -85,7 +86,7 @@
   </div>
   <!-- Mobile menu, show/hide based on menu state. -->
   <div class="scale-0 sm:hidden absolute transition-all duration-250 easy-in-out w-full bg-pink-800 rounded-b" id="mobile-menu">
-    <div class="px-2 pt-2 pb-3 space-y-4">
+    <div class="px-2 pt-2 pb-3 space-y-2">
       {% if request.path == URLPosts  %}
         <a href="{% url "blog:posts" %}" class="md:cursor-pointer cursor-default bg-white text-pink-800 block px-3 py-2 rounded-md text-base font-medium">
           Posts
@@ -95,8 +96,10 @@
           Posts
         </a>
       {% endif %}
-      <div class="h-2 rounded bg-gradient-to-r from-purple-800 to-pink-600 w-full"></div>
+      <div class="h-0.5 rounded bg-gradient-to-r from-purple-800 to-pink-600 w-full"></div>
       <a href="#" class="md:cursor-pointer cursor-default text-gray-300 hover:bg-pink-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
+      <div class="h-0.5 rounded bg-gradient-to-r from-purple-800 to-pink-600 w-full"></div>
+      <a href="#" class="md:cursor-pointer cursor-default text-gray-300 hover:bg-pink-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contact</a>
     </div>
   </div>
 <script>

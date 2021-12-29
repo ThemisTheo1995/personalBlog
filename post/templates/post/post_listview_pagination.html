@@ -1,0 +1,42 @@
+<div class="pagination w-full text-center mt-16">
+    <span class="step-links">
+    {% if page_obj.has_previous %}
+    <a class="md:cursor-pointer cursor-default py-1 px-2 mr-2 rounded-full transition duration-75 ease-in-out bg-purple-800 hover:bg-purple-900 bg-opacity-75" 
+        href="?page=1">
+        <svg width="10" height="10" fill="White" class="mb-1 -mr-1 inline-block bi bi-caret-left-fill" viewBox="0 0 16 16">
+            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+        </svg>
+        <svg width="10" height="10" fill="White" class="mb-1 -mr-1 inline-block bi bi-caret-left-fill" viewBox="0 0 16 16">
+            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+        </svg>
+    </a>
+    <a class="md:cursor-pointer cursor-default py-1 px-4 rounded-full transition duration-75 ease-in-out bg-purple-800 hover:bg-purple-900" 
+        href="?page={{page_obj.previous_page_number}}">
+        <svg width="20" height="20" fill="White" class="mb-1 -mr-1 inline-block bi bi-caret-left-fill" viewBox="0 0 16 16">
+            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+        </svg>
+    </a>
+    {% endif %}
+    <span class="cursor-default bg-gradient-to-r from-purple-700 to-pink-700 current text-gray rounded-full px-8 shadow-md py-2 text-md align-center rounded-full mx-4 text-white">
+        <span class="cursor-default font-bold">{{ page_obj.number }}</span> 
+        {% comment %} <span class="text-xs">of {{ page_obj.paginator.num_pages }}</span> {% endcomment %}
+    </span>
+    {% if page_obj.has_next %}
+    <a class="md:cursor-pointer cursor-default py-1 px-4 rounded-full transition duration-75 ease-in-out bg-pink-800 hover:bg-pink-900" 
+        href="?page={{page_obj.next_page_number}}">
+        <svg width="20" height="20" fill="White" class="mb-1 -mr-1 inline-block bi bi-caret-right-fill" viewBox="0 0 16 16">
+        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+        </svg>
+    </a>
+    <a class="md:cursor-pointer cursor-default py-1 px-2 ml-2 rounded-full transition duration-75 ease-in-out bg-pink-800 hover:bg-pink-900 bg-opacity-75" 
+        href="?page={{page_obj.paginator.num_pages}}">
+        <svg width="10" height="10" fill="White" class="mb-1 inline-block bi bi-caret-right-fill" viewBox="0 0 16 16">
+            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+        </svg>
+        <svg width="10" height="10" fill="White" class="mb-1 -ml-1 inline-block bi bi-caret-right-fill" viewBox="0 0 16 16">
+            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+        </svg>
+    </a>
+    {% endif %}
+    </span>
+</div>
