@@ -9,5 +9,5 @@ class BlogListView(generic.ListView):
     context_object_name = "posts"
     
     def get_queryset(self):
-        queryset = Post.objects.filter(published=True)
+        queryset = Post.objects.filter(published=True).order_by('-post_date')
         return queryset

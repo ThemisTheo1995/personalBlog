@@ -1,9 +1,9 @@
 from django.contrib import admin
 from .models import Post
 
-# Properties admin
+# Post admin
 @admin.register(Post)
-class PropertiesAdmin(admin.ModelAdmin):
+class PostAdmin(admin.ModelAdmin):
     
     model = Post
     list_display = ['id', 'title', 'title_tag','author', 'post_date', 'category', 'published']

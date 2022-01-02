@@ -13,6 +13,7 @@
           </svg>
         </button>
       </div>
+      <!-- Brand, Logo section -->
       <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
         <div class="flex-shrink-0 flex items-center">
           <img class="block lg:hidden h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
@@ -34,50 +35,128 @@
           </div>
         </div>
       </div>
+      <!-- Notifications, Profile section -->
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-        <button type="button" class="md:cursor-pointer cursor-default bg-white p-1 rounded-full text-gray-400 hover:text-fuchsia-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-          <span class="sr-only">View notifications</span>
-          <span class="absolute -m-2 ml-1 inline-flex h-3 w-3 opacity-75 animate-ping rounded-full bg-white"></span>
-          <span class="absolute -m-2 ml-1 inline-flex h-3 w-3 rounded-full bg-pink-800 border-white border"></span>
-          <!-- Heroicon name: outline/bell -->
-          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-          </svg>
-        </button>
-        <!-- Profile dropdown -->
+        <!-- Notifications -->
+        <div class="relative">
+          <button type="button" onclick="navDropdown('notifications-menu')" id="notifications-menu-btn"
+          class="md:cursor-pointer cursor-default dropdown-menu-btn bg-white p-1 rounded-full text-gray-400 hover:text-fuchsia-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+            <span class="sr-only">View notifications</span>
+            {% if request.user.is_authenticated and is_read %}
+            <span id="ntf_ping" class="">
+            </span>
+            {% else %}
+            <span id="ntf_ping" class="">
+              <span class="absolute -m-2 ml-1 inline-flex h-3 w-3 opacity-75 animate-ping rounded-full bg-white"></span>
+              <span class="absolute -m-2 ml-1 inline-flex h-3 w-3 rounded-full bg-pink-600 border-white border"></span>
+            </span>
+            {% endif %}
+            <!-- Heroicon name: outline/bell -->
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+            </svg>
+          </button>
+          <div class="z-10 overflow-y-scroll max-h-96 scale-0 w-72 sm:w-96 dropdown-menu origin-top-right text-xs sm:text-sm absolute right-0 mt-2 rounded-md shadow-lg p-2 bg-gradient-to-r from-pink-100 to-gray-50 ring-1 ring-black ring-opacity-5 focus:outline-none transition-all duration-250" 
+            id="notifications-menu" style="scrollbar-width: thin;">
+            {% if request.user.is_authenticated %}
+            <div class="cursor-default block rounded px-2 text-base font-bold mb-2 text-gray-900">
+              Notifications
+              <button onclick="nav_notifications_handler()" class="float-right text-2xs text-gray-400">read all</button>
+            </div>
+            <!-- Notifications for auth users-->
+              {% for ntf in notifications %}
+              {% if ntf.read %}
+              <a href="#" class="md:cursor-pointer cursor-default block rounded px-2 py-3 text-gray-700 hover:bg-purple-100" id="ntf{{ntf.pk}}">
+                {{ntf.message}} 
+                <br>
+                <span class="text-2xs text-gray-400 italic font-light">
+                  {{ntf.is_past_due}}
+                </span>
+              </a>
+              {% else %}
+              <a href="#" class="md:cursor-pointer cursor-default block rounded px-2 py-3 text-gray-700 hover:bg-purple-100 font-semibold" id="ntf{{ntf.pk}}">
+                <span class="font-normal">
+                  New post!🎉
+                </span> 
+                {{ntf.message}}
+                <br>
+                <span class="text-2xs text-gray-400 italic font-light">
+                  {{ntf.is_past_due}}
+                </span>
+              </a>
+              {% endif %}
+              {% endfor %}
+            {% else %}
+            <!-- Notifications for non-auth users-->
+            <div class="cursor-default block rounded px-2 text-base font-bold mb-2 text-gray-900">
+              Notifications
+            </div>
+              <div class="cursor-default block rounded px-2 py-3 text-gray-700 bg-purple-200 font-semibold mb-4">
+                <span class="font-normal">
+                  Hey there👋👋.. <a class="md:cursor-pointer cursor-default font-bold" href="{% url 'account:signup' %}">Signup</a> or <a class="font-bold md:cursor-pointer cursor-default" href="{% url 'login' %}">login</a>
+                  to our blog and stay on top of emerging technology trends and news! Let the reading commence. 📖💻
+                </span> 
+                {{ntf.message}}
+                <br>
+                <span class="text-2xs text-gray-400 italic font-light">
+                  {{ntf.sent_date}}
+                </span>
+              </div>
+              {% for ntf in notifications %}
+              {% if forloop.counter == 2 %}
+              <a href="#" class="md:cursor-pointer cursor-default block rounded px-2 py-3 text-gray-700 hover:bg-purple-100 text-opacity-50" id="ntf{{ntf.pk}}">
+                {{ntf.message}}
+                <br>
+                <span class="text-2xs text-gray-400 text-opacity-50 italic font-light">
+                  {{ntf.sent_date}}
+                </span>
+              </a>
+              {% else %}
+              <a href="#" class="md:cursor-pointer cursor-default block rounded px-2 py-3 text-gray-700 hover:bg-purple-100 text-opacity-75" id="ntf{{ntf.pk}}">
+                {{ntf.message}} 
+                <br>
+                <span class="text-2xs text-gray-400 text-opacity-75 italic font-light">
+                  {{ntf.sent_date}}
+                </span>
+              </a>
+              {% endif %}
+              {% endfor %}
+              <p class="px-2 py-3 cursor-default text-center">. . .</p>
+            {% endif %}
+          </div>
+        </div>
+        <!-- Profile -->
         <div class="ml-3 relative">
           {% if request.user.is_authenticated %}
-          <!-- User is authenticated-->
-          <button type="button" class="md:cursor-pointer cursor-default dropdown bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" 
+          <button type="button" onclick="navDropdown('profile-menu')" class="md:cursor-pointer dropdown-menu-btn cursor-default bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" 
           id="profile-menu-btn">
             <span class="sr-only">Open user menu</span>
             {% if request.user.avatar == ''%}
             <img class="h-8 w-8 rounded-full bg-pink-800 hover:bg-pink-700" src="{% static "thblog/images/Avatars/nonauth_user.svg" %}" alt="avtr">
             {% else %}
-            <img class="h-8 w-8 rounded-full" src="{% static "thblog/images/Avatars/" %}{{user.avatar}}" alt="avtr">
+            <img class="h-8 w-8 rounded-full p-0.5 bg-white" src="{% static "thblog/images/Avatars/" %}{{user.avatar}}" alt="avtr">
             {% endif %}
           </button>
-          <div class="z-10 scale-0 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg p-2 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none transition-all duration-250" 
+          <div class="z-10 scale-0 dropdown-menu origin-top-right text-sm absolute right-0 mt-2 w-48 rounded-md shadow-lg p-2 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none transition-all duration-250" 
             id="profile-menu">
-            <a href="#" class="md:cursor-pointer cursor-default block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-0">My Account</a>
-            <a href="#" class="md:cursor-pointer cursor-default block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-1">Settings</a>
-            <a href="{% url "account:update-user" %}" class="md:cursor-pointer cursor-default block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-2">Update Account Details</a>
-            <a href="{% url "logout" %}" class="md:cursor-pointer cursor-default block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-3">Logout</a>
-            <a href="#" class="md:cursor-pointer cursor-default block rounded px-2 py-2 text-xs text-gray-500 hover:bg-purple-100" id="user-menu-item-4">GDPR • Policy</a>
+            <div class="cursor-default block rounded px-2 text-base font-bold mb-2 text-gray-900">
+              Account
+            </div>
+            <a href="{% url "account:update-user" %}" class="md:cursor-pointer cursor-default block rounded border-b border-purple-100 px-2 py-3 text-gray-700 hover:bg-purple-100" id="user-menu-item-0">My Details</a>
+            <a href="{% url "logout" %}" class="md:cursor-pointer cursor-default block rounded border-b border-purple-100 px-2 py-3 text-gray-700 hover:bg-purple-100" id="user-menu-item-3">Logout</a>
+            <a href="#" class="md:cursor-pointer cursor-default block rounded text-2xs px-2 py-2 text-gray-500 hover:bg-purple-100" id="user-menu-item-4">GDPR • Policy</a>
           </div>
           {% else %}
-          <!-- User is not authenticated-->
-          <button type="button" class="md:cursor-pointer cursor-default dropdown bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" 
+          <button type="button" onclick="navDropdown('profile-menu')" class="md:cursor-pointer cursor-default dropdown-menu-btn bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" 
           id="profile-menu-btn">
             <span class="sr-only">Open user menu</span>
             <img class="h-8 w-8 rounded-full bg-pink-800 hover:bg-pink-700" src="{% static "thblog/images/Avatars/nonauth_user.svg" %}" alt="avtr">
           </button>
-          <div class="z-10 scale-0 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg p-2 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none transition-all duration-250" 
+          <div class="z-10 scale-0 dropdown-menu origin-top-right text-sm absolute right-0 mt-2 w-48 rounded-md shadow-lg p-2 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none transition-all duration-250" 
             id="profile-menu">
-            <a href="{% url "login" %}" class="md:cursor-pointer cursor-default block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-0">Login</a>
-            <a href="{% url 'account:signup' %}" class="md:cursor-pointer cursor-default block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-1">Signup</a>
-            <a href="#" class="md:cursor-pointer cursor-default block rounded border-b border-purple-100 px-2 py-3 text-sm text-gray-700 hover:bg-purple-100" id="user-menu-item-2">Favourites</a>
-            <a href="#" class="md:cursor-pointer cursor-default block rounded px-2 py-2 text-xs text-gray-500 hover:bg-purple-100" id="user-menu-item-3">GDPR • Policy</a>
+            <a href="{% url "login" %}" class="md:cursor-pointer cursor-default block rounded border-b border-purple-100 px-2 py-3 text-gray-700 hover:bg-purple-100" id="user-menu-item-0">Login</a>
+            <a href="{% url 'account:signup' %}" class="md:cursor-pointer cursor-default block rounded border-b border-purple-100 px-2 py-3 text-gray-700 hover:bg-purple-100" id="user-menu-item-1">Signup</a>
+            <a href="#" class="md:cursor-pointer cursor-default block rounded px-2 py-2 text-2xs text-gray-500 hover:bg-purple-100" id="user-menu-item-3">GDPR • Policy</a>
           </div>
           {% endif %}
         </div>
