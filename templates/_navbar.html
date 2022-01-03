@@ -30,7 +30,6 @@
               Posts
             </a>
           {% endif %}
-            <a href="#" class="md:cursor-pointer cursor-default text-gray-300 hover:bg-pink-700 hover:text-white px-3 py-2 rounded-md text-sm">About</a>
             <a href="#" class="md:cursor-pointer cursor-default text-gray-300 hover:bg-pink-700 hover:text-white px-3 py-2 rounded-md text-sm">Contact</a>
           </div>
         </div>
@@ -66,19 +65,19 @@
             <!-- Notifications for auth users-->
               {% for ntf in notifications %}
               {% if ntf.read %}
-              <a href="#" class="md:cursor-pointer cursor-default block rounded px-2 py-3 text-gray-700 hover:bg-purple-100" id="ntf{{ntf.pk}}">
-                {{ntf.message}} 
+              <a href="{% url 'blog:post' ntf.message.pk %}" class="md:cursor-pointer cursor-default block rounded px-2 py-3 text-gray-700 hover:bg-purple-100" id="ntf{{ntf.pk}}">
+                {{ntf.message.title}} 
                 <br>
                 <span class="text-2xs text-gray-400 italic font-light">
                   {{ntf.is_past_due}}
                 </span>
               </a>
               {% else %}
-              <a href="#" class="md:cursor-pointer cursor-default block rounded px-2 py-3 text-gray-700 hover:bg-purple-100 font-semibold" id="ntf{{ntf.pk}}">
+              <a href="{% url 'blog:post' ntf.message.pk %}" class="md:cursor-pointer cursor-default block rounded px-2 py-3 text-gray-700 hover:bg-purple-100 font-semibold" id="ntf{{ntf.pk}}">
                 <span class="font-normal">
                   New post!🎉
                 </span> 
-                {{ntf.message}}
+                {{ntf.message.title}}
                 <br>
                 <span class="text-2xs text-gray-400 italic font-light">
                   {{ntf.is_past_due}}
@@ -96,24 +95,19 @@
                   Hey there👋👋.. <a class="md:cursor-pointer cursor-default font-bold" href="{% url 'account:signup' %}">Signup</a> or <a class="font-bold md:cursor-pointer cursor-default" href="{% url 'login' %}">login</a>
                   to our blog and stay on top of emerging technology trends and news! Let the reading commence. 📖💻
                 </span> 
-                {{ntf.message}}
-                <br>
-                <span class="text-2xs text-gray-400 italic font-light">
-                  {{ntf.sent_date}}
-                </span>
               </div>
               {% for ntf in notifications %}
               {% if forloop.counter == 2 %}
-              <a href="#" class="md:cursor-pointer cursor-default block rounded px-2 py-3 text-gray-700 hover:bg-purple-100 text-opacity-50" id="ntf{{ntf.pk}}">
-                {{ntf.message}}
+              <a href="{% url 'blog:post' ntf.message__pk %}" class="md:cursor-pointer cursor-default block rounded px-2 py-3 text-gray-700 hover:bg-purple-100 text-opacity-50" id="ntf{{ntf.pk}}">
+                {{ntf.message__title}}
                 <br>
                 <span class="text-2xs text-gray-400 text-opacity-50 italic font-light">
                   {{ntf.sent_date}}
                 </span>
               </a>
               {% else %}
-              <a href="#" class="md:cursor-pointer cursor-default block rounded px-2 py-3 text-gray-700 hover:bg-purple-100 text-opacity-75" id="ntf{{ntf.pk}}">
-                {{ntf.message}} 
+              <a href="{% url 'blog:post' ntf.message__pk %}" class="md:cursor-pointer cursor-default block rounded px-2 py-3 text-gray-700 hover:bg-purple-100 text-opacity-75" id="ntf{{ntf.pk}}">
+                {{ntf.message__title}} 
                 <br>
                 <span class="text-2xs text-gray-400 text-opacity-75 italic font-light">
                   {{ntf.sent_date}}
@@ -121,7 +115,7 @@
               </a>
               {% endif %}
               {% endfor %}
-              <p class="px-2 py-3 cursor-default text-center">. . .</p>
+              <p class="px-2 py-1 cursor-default text-center">. . .</p>
             {% endif %}
           </div>
         </div>
@@ -175,8 +169,6 @@
           Posts
         </a>
       {% endif %}
-      <div class="h-0.5 rounded bg-gradient-to-r from-purple-800 to-pink-600 w-full"></div>
-      <a href="#" class="md:cursor-pointer cursor-default text-gray-300 hover:bg-pink-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
       <div class="h-0.5 rounded bg-gradient-to-r from-purple-800 to-pink-600 w-full"></div>
       <a href="#" class="md:cursor-pointer cursor-default text-gray-300 hover:bg-pink-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contact</a>
     </div>

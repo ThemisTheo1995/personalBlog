@@ -12,5 +12,4 @@ def nav_notifications_handler(request):
             re = True
         except:
             re = False
-            print("false")
     return JsonResponse(re, safe=False)

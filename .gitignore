@@ -147,7 +147,12 @@ dmypy.json
 cython_debug/
 
 # Ignore static files
+/static
 static/
+
+# Media
+/media 
+media/
 
 # PyCharm
 #  JetBrains specific template is maintainted in a separate JetBrains.gitignore that can
