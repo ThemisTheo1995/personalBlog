@@ -26,9 +26,9 @@
             {% for avatar in avatars %}
             <div class="p-4 md:w-1/4 w-1/3 flex justify-center">
             {% if avatar == request.user.avatar %}
-              <img id="{{avatar}}" class="bg-pink-800 h-20 shadow w-20 p-2 rounded-full md:cursor-pointer cursor-default border-white-100 border user-avatar hover:bg-pink-800 transition-all duration-200 easy-in-out" src="{% static "thblog/images/Avatars/" %}{{avatar}}" alt="avtr">
+              <img id="{{avatar}}" class="bg-pink-800 h-20 shadow-md w-20 p-2 rounded-full md:cursor-pointer cursor-default user-avatar hover:bg-pink-800 transition-all duration-200 easy-in-out" src="{% static "thblog/images/Avatars/" %}{{avatar}}" alt="avtr">
             {% else %}
-                <img id="{{avatar}}" class="h-20 shadow w-20 p-2 rounded-full md:cursor-pointer cursor-default border-white-100 border user-avatar bg-white hover:bg-pink-800 transition-all duration-200 easy-in-out" src="{% static "thblog/images/Avatars/" %}{{avatar}}" alt="avtr">
+                <img id="{{avatar}}" class="h-20 shadow-md w-20 p-2 rounded-full md:cursor-pointer cursor-default user-avatar bg-white hover:bg-pink-800 transition-all duration-200 easy-in-out" src="{% static "thblog/images/Avatars/" %}{{avatar}}" alt="avtr">
             {% endif %}
             </div>
             {% endfor %}

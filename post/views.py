@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views import generic
 from .models import Post
+from .forms import PostCreationForm
 from notification.models import Click
 
 ### List view ###
@@ -44,3 +45,19 @@ class BlogDetailView(generic.DetailView):
         # Return post detail view
         queryset = Post.objects.filter(published=True)
         return queryset
+    
+### Create view ###
+class BlogCreateView(generic.CreateView):
+    template_name = "post/post_createview.html"
+    form_class = PostCreationForm
+    
+    def get_success_url(self, form):
+        
+        return redirect("blog:posts")
+    
+    # def form_valid(self, form):
+    #     post = form.save(commit = False)
+    
+    #     post.save()
+        
+    #     return super(BlogCreateView, self).form_valid(form)

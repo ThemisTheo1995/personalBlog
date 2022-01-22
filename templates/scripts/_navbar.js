@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // Account , Notifications dropdown listener
     document.addEventListener('click', function (e) {
         const dropdownBtn = e.target.closest('button');
-        if (dropdownBtn === null || !(dropdownBtn.classList.contains('dropdown-menu-btn'))){
+        const notifMenu = document.getElementById('notifications-menu');
+        if ((dropdownBtn === null || !(dropdownBtn.classList.contains('dropdown-menu-btn'))) && !notifMenu.contains(e.target)){
             const dropdownMenus = document.querySelectorAll('.dropdown-menu');
             dropdownMenus.forEach(item =>{ 
                 item.classList.remove('scale-1');
@@ -53,12 +54,14 @@ function nav_notifications_handler(){
     // Update the status of the unread articles.
     fetch("{% url 'notification:nav_notifications_handler' %}").then(function(response){
         if (response.status == 200){
-            console.log('passed');
+            // Remove animation
+            document.getElementById("ntf_ping").classList.add("hidden");
+            // Remove 'new notifications' effects
+            notifications = document.querySelectorAll('.not-element');
+            notifications.forEach(item =>{
+                item.classList.remove("font-semibold");
+            });
         }else{
-            console.log('failed');
         }
     });
-
-    // Remove animation
-    document.getElementById("ntf_ping").classList.add("hidden");
 }

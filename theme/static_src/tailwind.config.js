@@ -45,10 +45,10 @@ module.exports = {
         extend: {
             fontSize: {
                 '2xs': '.69rem',
-              },
-              transitionProperty: {
+            },
+            transitionProperty: {
                 'height': 'height',
-              }
+            },
         },
     },
     plugins: [

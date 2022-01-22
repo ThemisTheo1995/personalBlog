@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tailwind_filters %}
+{% block title %}Independent Analyst: Create Post{% endblock title %}
+{% block content %}
+<section class="text-gray-600 body-font bg-gray-100">
+    <div class="container max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-8">
+        <div class="flex flex-wrap">
+            <div class="lg:w-3/4 sm:px-6 px-2 mx-auto text-gray-800">
+            <form method="post" class="transition ease-in-out" enctype="multipart/form-data" autocomplete="off">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="md:cursor-pointer cursor-default w-full tracking-wider bg-gradient-to-r from-purple-800 to-pink-800 hover:shadow-xl px-3 py-2 rounded-md text-white mb-3 text-lg transition duration-100 ease-in-out">
+                    Launch your Post! 🎉
+                </button>
+            </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
